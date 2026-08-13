@@ -6,7 +6,7 @@ import Footer from './footer';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem enableColorScheme storageKey="theme-preference">
+    <ThemeProvider attribute="class" defaultTheme="light" themes={['light', 'dark']}>
       <Navbar />
       <main className="flex-1 w-full flex justify-center">
         <div className="w-full max-w-4xl px-4 py-8">
