@@ -67,17 +67,24 @@ export default function Home() {
         <h2 className="text-2xl font-bold">기술 스택</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { name: 'Next.js 15', icon: '⚛️' },
-            { name: 'TypeScript', icon: '📘' },
-            { name: 'Tailwind CSS', icon: '🎨' },
-            { name: 'React Hook Form', icon: '📋' },
-            { name: 'Zod', icon: '✅' },
-            { name: 'next-themes', icon: '🌓' },
+            { name: 'Next.js 15', icon: '⚛️', url: 'https://nextjs.org' },
+            { name: 'TypeScript', icon: '📘', url: 'https://www.typescriptlang.org' },
+            { name: 'Tailwind CSS', icon: '🎨', url: 'https://tailwindcss.com' },
+            { name: 'React Hook Form', icon: '📋', url: 'https://react-hook-form.com' },
+            { name: 'Zod', icon: '✅', url: 'https://zod.dev' },
+            { name: 'next-themes', icon: '🌓', url: 'https://github.com/pacocoursey/next-themes' },
           ].map(tech => (
-            <div key={tech.name} className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 text-center">
-              <div className="text-2xl mb-2">{tech.icon}</div>
+            <a
+              key={tech.name}
+              href={tech.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 text-center hover:border-slate-400 dark:hover:border-slate-600 hover:shadow-lg dark:hover:shadow-slate-900/50 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer"
+            >
+              <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{tech.icon}</div>
               <p className="text-sm font-medium">{tech.name}</p>
-            </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 hover:underline">공식 사이트 →</p>
+            </a>
           ))}
         </div>
       </section>
