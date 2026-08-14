@@ -20,14 +20,17 @@ Next.js 15, TypeScript, Tailwind CSS를 사용한 포트폴리오 프로젝트�
 | Dark Mode | next-themes |
 | Package Manager | npm |
 
+## 🚀 라이브 데모
+
+https://nextjs-portfolio-starter.vercel.app
+
 ## 📦 설치 및 실행
 
-### 1. 프로젝트 클론 또는 포크
+### 1. 프로젝트 클론
 
 ```bash
-# 포크한 경우
-git clone https://github.com/YOUR_USERNAME/claude-nextjs-starters3.git
-cd claude-nextjs-starters3
+git clone https://github.com/JiWonGoon/nextjs-portfolio-starter.git
+cd nextjs-portfolio-starter
 ```
 
 ### 2. 의존성 설치
@@ -137,24 +140,32 @@ const geistSans = Geist({
 
 ## 🚢 배포
 
-### Vercel에 배포 (권장)
+### ✨ Vercel에 배포 (가장 쉬움, 권장)
 
-1. [Vercel](https://vercel.com)에 로그인
-2. "New Project" 클릭
-3. GitHub 저장소 선택
-4. 배포 버튼 클릭
+1. [Vercel](https://vercel.com)에 접속
+2. **"Add New..."** → **"Project"** 클릭
+3. GitHub에서 이 저장소 선택
+4. **Deploy** 클릭 (설정 자동)
+
+배포 완료 후 자동으로 URL이 생성됩니다!
+
+**특징:**
+- ✅ 한 번의 클릭으로 배포
+- ✅ 자동 빌드 및 배포
+- ✅ GitHub 푸시 시 자동 갱신
+- ✅ 무료 호스팅
 
 ### 다른 플랫폼에 배포
 
 ```bash
 npm run build
-# 생성된 .next 폴더를 배포합니다
+npm run start
 ```
 
-- Netlify
-- GitHub Pages (static export)
-- AWS Amplify
-- Firebase Hosting
+- **Netlify**: 위와 동일하게 GitHub 연결
+- **GitHub Pages**: static export 필요
+- **AWS Amplify**: Amplify Console에서 설정
+- **Firebase Hosting**: Firebase CLI 사용
 
 ## 📖 유용한 자료
 
