@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/nextjs-portfolio-starter",
+  basePath: process.env.NODE_ENV === "production" ? "/nextjs-portfolio-starter" : "",
+  trailingSlash: true,
 };
 
 export default nextConfig;
