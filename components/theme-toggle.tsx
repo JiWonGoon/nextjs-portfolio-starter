@@ -20,19 +20,19 @@ export default function ThemeToggle() {
   const isDark = resolvedTheme === 'dark';
 
   const handleToggle = () => {
-    console.log('현재 테마:', resolvedTheme);
-    const newTheme = isDark ? 'light' : 'dark';
-    console.log('변경할 테마:', newTheme);
-    setTheme(newTheme);
+    // DEBUG 모드에서만 로그 출력 (프로덕션에서는 표시 안됨)
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      console.log('현재 테마:', resolvedTheme);
+    }
 
-    // 강제로 HTML 요소 업데이트
-    setTimeout(() => {
-      if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }, 0);
+    const newTheme = isDark ? 'light' : 'dark';
+
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      console.log('변경할 테마:', newTheme);
+    }
+
+    // next-themes가 자동으로 DOM 클래스를 관리하므로 setTheme만 호출하면 됨
+    setTheme(newTheme);
   };
 
   return (

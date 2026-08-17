@@ -3,8 +3,18 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// 폼 데이터의 구조를 정의하는 인터페이스
+// TypeScript는 이를 통해 formData의 속성을 정확히 파악하고 타입 체크를 수행합니다
+interface FormData {
+  name: string;
+  email: string;
+  category: string;
+  message: string;
+}
+
 export default function FormBasicPage() {
-  const [formData, setFormData] = useState({
+  // FormData 인터페이스를 명시함으로써 formData가 정확한 타입을 가지도록 보장
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     category: '',
@@ -24,7 +34,10 @@ export default function FormBasicPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitted(true);
-    console.log('폼 제출:', formData);
+    // DEBUG 모드에서만 로그 출력 (프로덕션에서는 표시 안됨)
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      console.log('폼 제출:', formData);
+    }
   };
 
   return (

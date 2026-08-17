@@ -78,7 +78,7 @@ export default function CheckboxPage() {
                   const item = items.find(i => i.id === id);
                   return (
                     <span key={id} className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100 rounded-full text-sm font-medium">
-                      {item?.label}
+                      {item?.label ?? '알 수 없음'}
                     </span>
                   );
                 })}
@@ -121,7 +121,7 @@ export default function CheckboxPage() {
                 <ul className="space-y-2">
                   {selectedItems.map(id => (
                     <li key={id} className="text-slate-700 dark:text-slate-300">
-                      ✓ {items.find(i => i.id === id)?.label}
+                      ✓ {items.find(i => i.id === id)?.label ?? '알 수 없음'}
                     </li>
                   ))}
                 </ul>

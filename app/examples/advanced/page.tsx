@@ -25,7 +25,17 @@ export default function AdvancedPage() {
   });
 
   const [experiences, setExperiences] = useState<FormData[]>([]);
-  const [currentStep, setCurrentStep] = useState<'basic' | 'skills' | 'description' | 'review'>('basic');
+
+  // 폼 단계를 상수로 정의하여 매직 스트링 제거
+  const STEPS = {
+    BASIC: 'basic',
+    SKILLS: 'skills',
+    DESCRIPTION: 'description',
+    REVIEW: 'review',
+  } as const;
+
+  type StepType = typeof STEPS[keyof typeof STEPS];
+  const [currentStep, setCurrentStep] = useState<StepType>(STEPS.BASIC);
 
   const skillOptions = [
     'React', 'Vue.js', 'Angular',
@@ -65,7 +75,7 @@ export default function AdvancedPage() {
         skills: [],
         responsibility: '',
       });
-      setCurrentStep('basic');
+      setCurrentStep(STEPS.BASIC);
     }
   };
 
@@ -75,13 +85,13 @@ export default function AdvancedPage() {
 
   const isStepComplete = (): boolean => {
     switch (currentStep) {
-      case 'basic':
+      case STEPS.BASIC:
         return !!(experience.company && experience.position && experience.startDate);
-      case 'skills':
+      case STEPS.SKILLS:
         return experience.skills.length > 0;
-      case 'description':
+      case STEPS.DESCRIPTION:
         return !!(experience.description && experience.responsibility);
-      case 'review':
+      case STEPS.REVIEW:
         return true;
       default:
         return false;
@@ -104,14 +114,14 @@ export default function AdvancedPage() {
         {/* 스텝 표시 */}
         <div className="flex items-center justify-between gap-2">
           {[
-            { step: 'basic', label: '기본 정보', icon: '📋' },
-            { step: 'skills', label: '기술 스택', icon: '⚙️' },
-            { step: 'description', label: '상세 정보', icon: '📝' },
-            { step: 'review', label: '검토', icon: '✅' },
+            { step: STEPS.BASIC, label: '기본 정보', icon: '📋' },
+            { step: STEPS.SKILLS, label: '기술 스택', icon: '⚙️' },
+            { step: STEPS.DESCRIPTION, label: '상세 정보', icon: '📝' },
+            { step: STEPS.REVIEW, label: '검토', icon: '✅' },
           ].map((item, idx, arr) => (
             <div key={item.step} className="flex items-center flex-1">
               <button
-                onClick={() => setCurrentStep(item.step as any)}
+                onClick={() => setCurrentStep(item.step as StepType)}
                 className={`flex flex-col items-center flex-1 py-3 px-2 rounded-lg transition-all ${
                   currentStep === item.step
                     ? 'bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900'
@@ -129,7 +139,7 @@ export default function AdvancedPage() {
         </div>
 
         {/* 스텝 1: 기본 정보 */}
-        {currentStep === 'basic' && (
+        {currentStep === STEPS.BASIC && (
           <div className="space-y-4 p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
             <h2 className="text-2xl font-bold">기본 정보</h2>
 
@@ -197,7 +207,7 @@ export default function AdvancedPage() {
         )}
 
         {/* 스텝 2: 기술 스택 */}
-        {currentStep === 'skills' && (
+        {currentStep === STEPS.SKILLS && (
           <div className="space-y-4 p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
             <h2 className="text-2xl font-bold">기술 스택</h2>
             <p className="text-slate-600 dark:text-slate-400">이 직책에서 사용한 기술을 선택하세요:</p>
@@ -241,7 +251,7 @@ export default function AdvancedPage() {
         )}
 
         {/* 스텝 3: 상세 정보 */}
-        {currentStep === 'description' && (
+        {currentStep === STEPS.DESCRIPTION && (
           <div className="space-y-4 p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
             <h2 className="text-2xl font-bold">상세 정보</h2>
 
@@ -271,13 +281,13 @@ export default function AdvancedPage() {
 
             <div className="flex gap-3">
               <button
-                onClick={() => setCurrentStep('skills')}
+                onClick={() => setCurrentStep(STEPS.SKILLS)}
                 className="flex-1 py-2 rounded-lg font-medium bg-slate-300 dark:bg-slate-700 text-slate-900 dark:text-slate-50 hover:opacity-80"
               >
                 이전
               </button>
               <button
-                onClick={() => isStepComplete() && setCurrentStep('review')}
+                onClick={() => isStepComplete() && setCurrentStep(STEPS.REVIEW)}
                 disabled={!isStepComplete()}
                 className={`flex-1 py-2 rounded-lg font-medium transition-all ${
                   isStepComplete()
@@ -292,7 +302,7 @@ export default function AdvancedPage() {
         )}
 
         {/* 스텝 4: 검토 및 제출 */}
-        {currentStep === 'review' && (
+        {currentStep === STEPS.REVIEW && (
           <div className="space-y-4 p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
             <h2 className="text-2xl font-bold">입력 정보 검토</h2>
 
@@ -342,7 +352,7 @@ export default function AdvancedPage() {
 
             <div className="flex gap-3">
               <button
-                onClick={() => setCurrentStep('description')}
+                onClick={() => setCurrentStep(STEPS.DESCRIPTION)}
                 className="flex-1 py-2 rounded-lg font-medium bg-slate-300 dark:bg-slate-700 text-slate-900 dark:text-slate-50 hover:opacity-80"
               >
                 이전

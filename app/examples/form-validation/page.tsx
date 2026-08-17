@@ -34,10 +34,29 @@ export default function FormValidationPage() {
   });
 
   const onSubmit = (data: ContactFormData) => {
-    console.log('검증된 폼 데이터:', data);
+    // DEBUG 모드에서만 로그 출력 (프로덕션에서는 표시 안됨)
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      console.log('검증된 폼 데이터:', data);
+    }
     setSubmitData(data);
     setSubmitted(true);
   };
+
+  // className 반복을 제거하기 위한 헬퍼 함수
+  // 입력 필드의 스타일을 일관되게 적용하고 에러 상태를 처리합니다
+  const getInputClasses = (hasError: boolean): string => `
+    w-full px-4 py-2 rounded-md border
+    ${hasError
+      ? 'border-red-500 dark:border-red-500'
+      : 'border-slate-300 dark:border-slate-600'}
+    bg-white dark:bg-slate-900
+    text-slate-900 dark:text-slate-50
+    placeholder-slate-500 dark:placeholder-slate-400
+    focus:outline-none focus:ring-2
+    ${hasError
+      ? 'focus:ring-red-500'
+      : 'focus:ring-slate-400 dark:focus:ring-slate-600'}
+  `.trim();
 
   return (
     <div className="space-y-8 max-w-2xl">
@@ -80,13 +99,7 @@ export default function FormValidationPage() {
             id="name"
             type="text"
             placeholder="2자 이상 입력하세요"
-            className={`w-full px-4 py-2 rounded-md border ${
-              errors.name
-                ? 'border-red-500 dark:border-red-500'
-                : 'border-slate-300 dark:border-slate-600'
-            } bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 ${
-              errors.name ? 'focus:ring-red-500' : 'focus:ring-slate-400 dark:focus:ring-slate-600'
-            }`}
+            className={getInputClasses(!!errors.name)}
             {...register('name')}
           />
           {errors.name && (
@@ -103,13 +116,7 @@ export default function FormValidationPage() {
             id="email"
             type="email"
             placeholder="example@email.com"
-            className={`w-full px-4 py-2 rounded-md border ${
-              errors.email
-                ? 'border-red-500 dark:border-red-500'
-                : 'border-slate-300 dark:border-slate-600'
-            } bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 ${
-              errors.email ? 'focus:ring-red-500' : 'focus:ring-slate-400 dark:focus:ring-slate-600'
-            }`}
+            className={getInputClasses(!!errors.email)}
             {...register('email')}
           />
           {errors.email && (
@@ -126,13 +133,7 @@ export default function FormValidationPage() {
             id="phone"
             type="tel"
             placeholder="01012345678"
-            className={`w-full px-4 py-2 rounded-md border ${
-              errors.phone
-                ? 'border-red-500 dark:border-red-500'
-                : 'border-slate-300 dark:border-slate-600'
-            } bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 ${
-              errors.phone ? 'focus:ring-red-500' : 'focus:ring-slate-400 dark:focus:ring-slate-600'
-            }`}
+            className={getInputClasses(!!errors.phone)}
             {...register('phone')}
           />
           {errors.phone && (
@@ -147,13 +148,7 @@ export default function FormValidationPage() {
           </label>
           <select
             id="category"
-            className={`w-full px-4 py-2 rounded-md border ${
-              errors.category
-                ? 'border-red-500 dark:border-red-500'
-                : 'border-slate-300 dark:border-slate-600'
-            } bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 ${
-              errors.category ? 'focus:ring-red-500' : 'focus:ring-slate-400 dark:focus:ring-slate-600'
-            }`}
+            className={getInputClasses(!!errors.category)}
             {...register('category')}
           >
             <option value="">카테고리를 선택하세요</option>
@@ -175,13 +170,7 @@ export default function FormValidationPage() {
             id="message"
             rows={5}
             placeholder="10자 이상의 메시지를 입력하세요"
-            className={`w-full px-4 py-2 rounded-md border ${
-              errors.message
-                ? 'border-red-500 dark:border-red-500'
-                : 'border-slate-300 dark:border-slate-600'
-            } bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 ${
-              errors.message ? 'focus:ring-red-500' : 'focus:ring-slate-400 dark:focus:ring-slate-600'
-            }`}
+            className={getInputClasses(!!errors.message)}
             {...register('message')}
           />
           {errors.message && (
