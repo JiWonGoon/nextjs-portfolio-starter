@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[System.Media.SoundPlayer]::new('C:\\Windows\\Media\\Windows Background.wav').PlaySync()",
+            "shell": "powershell",
+            "statusMessage": "알림음 재생 중...",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[System.Media.SoundPlayer]::new('C:\\Windows\\Media\\Windows Background.wav').PlaySync()",
+            "shell": "powershell",
+            "statusMessage": "권한 요청 알림음...",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
